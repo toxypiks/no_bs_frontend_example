@@ -44,3 +44,9 @@
 	margin-top: 3%;
     margin-left: 3%;
 }
+
+.header > .login {
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 0.5%;
+}

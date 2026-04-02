@@ -1,5 +1,6 @@
 import {httpPostJson, httpGet} from "./http_operations.js";
 import "./main_component.js";
+import "./login_component.js"
 
 /**
  * Appends data to HTML Element with Id 'console'
@@ -77,12 +78,21 @@ function create_main_component()
     main_component_test_tag.append(main_component_tag);
 }
 
+function create_login_component() {
+    let login_component_test_tag = document.getElementById("login");
+    login_component_test_tag.innerHTML = "";
+
+    let login_component_tag = document.createElement("login-component");
+    login_component_test_tag.append(login_component_tag);
+}
+
 outputToConsole("init");
 
 document.getElementById("clear_console").onclick = function() {
     clearConsole();
 };
 
-create_main_component(),
+create_login_component();
+create_main_component();
 
 outputToConsole("running...");
