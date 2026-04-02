@@ -1,4 +1,5 @@
 import {httpPostJson, httpGet} from "./http_operations.js";
+import "./main_component.js";
 
 /**
  * Appends data to HTML Element with Id 'console'
@@ -67,10 +68,21 @@ function clearConsole() {
     document.getElementById("console").innerHTML = "";
 }
 
+function create_main_component()
+{
+    let main_component_test_tag = document.getElementById("main");
+    main_component_test_tag.innerHTML = "";
+    
+    let main_component_tag = document.createElement("main-component");
+    main_component_test_tag.append(main_component_tag);
+}
+
 outputToConsole("init");
 
 document.getElementById("clear_console").onclick = function() {
     clearConsole();
 };
+
+create_main_component(),
 
 outputToConsole("running...");
