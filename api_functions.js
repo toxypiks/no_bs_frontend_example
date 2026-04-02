@@ -83,16 +83,17 @@ function create_login_component() {
     login_component_test_tag.innerHTML = "";
 
     let login_component_tag = document.createElement("login-component");
+    login_component_tag.addEventListener("log-event",(event) => {
+            outputToConsole(event.detail);
+    });
     login_component_test_tag.append(login_component_tag);
 }
 
-outputToConsole("init");
+outputToConsole("running...");
 
 document.getElementById("clear_console").onclick = function() {
     clearConsole();
 };
 
 create_login_component();
-create_main_component();
-
-outputToConsole("running...");
+//create_main_component();

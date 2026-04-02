@@ -3,42 +3,56 @@ import {httpPostJson, httpGet} from "./http_operations.js";
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
-.login_form {
-  flex-flow: row nowrap !important;
-}
+    html, body {
+      height: 100%;
+    }
+    .login-container {
+      height: 100%;
+  }
 
-.form-inline {
-  display:flex;
-}
+  .login-card {
+      margin-top: 5%;
+    }
 
-.form-inline > .form-group {
-  margin-left: 5px;
-}
+  .image-container {
+      height: 100%;
+    }
 
-.form-inline > .btn {
-  margin-left: 5px;
-}
-
-#change_pwd {
-  white-space: nowrap;
-}
+  .image-container img {
+    max-width: 90%;   /* Bild passt sich der Breite an */
+    max-height: 90%;  /* Bild passt sich der Höhe an */
+    object-fit: contain; /* keine Verzerrung */
+    border-radius: 12px; /* optional, für weiche Ecken */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* optional, schöner Effekt */
+  }
 </style>
 
 <head>
   <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
 </head>
-<form class="form-inline login_form" id="login_form">
-  <div class="form-group">
-    <label class="sr-only" for="email">User Name</label>
-    <input type="email" class="form-control" id="user_name" placeholder="Enter email">
-  </div>
-    <div class="form-group">
-      <label class="sr-only" for="pwd">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter password">
+<div class="container login-container d-flex justify-content-center align-items-center">
+  <div class="card login-card p-4 shadow" style="width: 100%; max-width: 320px;">
+    <!-- logo -->
+    <img src="no_bs_logo.png" alt="logo">
+    
+    <h3 class="text-center mb-3">Login</h3>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Benutzername</label>
+        <input type="text" class="form-control" id="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Passwort</label>
+        <input type="password" class="form-control" id="password" required>
+      </div>
+      <button type="submit" id="send_login_data"class="btn btn-primary btn-block">Login</button>
+    </form>
+    <div class="text-center mt-3">
+      <a href="#" class="mr-3">Forgot Password?</a>
+      <a href="#">Sign Up</a>
     </div>
-    <button type="submit" class="btn btn-primary" id="send_login_data">Login</button>
-    <button type="submit" class="btn btn-link" id="change_pwd">Change Password</button>
-</form>
+  </div>
+</div>
 `;
 
 /**
@@ -53,11 +67,47 @@ class LoginComponent extends HTMLElement {
         this.root.appendChild(template.content.cloneNode(true));
     }
 
+    logEvent(log_msg) {
+        this.dispatchEvent(new CustomEvent("log-event",{detail : log_msg} ));
+    }
+
+    httpPostUserForLogin(){
+        let login_form = this.root.querySelector("#login_form");
+        let user_name = this.root.querySelector("#username").value;
+        // let salt = "salt_secretFAB23F5E3D";
+        let password = this.root.querySelector("#password").value;
+        console.log('Username:', user_name);
+        console.log('Password:', password);
+
+        // let password_hash = forge_sha256(password + salt);
+        let password_hash = password;
+        if(user_name == "" || password == "") {
+            alert("Both fields are required!");
+        } else {
+            let variable_context = "login_data: ";
+            let response_handler = (response_text) => {
+                let json_object_data = JSON.parse(response_text);
+                this.global_token = json_object_data["token"];
+                this.tokenEvent(this.global_token);
+            };
+            let json_object_data = {
+                username : user_name,
+                password_hash : password_hash
+            };
+            httpPostJson("session/login", json_object_data, variable_context, response_handler, null);
+        }
+    }
+
     /**
      * Lifecycle hook fires each time the webcomponent is appended into a document-connected element
      * Sets onclick events on buttons and sets methods which are automatically called when component got loaded
      */
     connectedCallback() {
+        
+        this.root.querySelector("#send_login_data").onclick = (event) => {
+            event.preventDefault();
+            this.httpPostUserForLogin();
+        };
     }
 }
 

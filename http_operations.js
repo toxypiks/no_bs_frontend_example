@@ -14,7 +14,7 @@ export function httpGet(endpoint_name, variable_context, response_handler, token
     xmlHttp.send(null);
 }
 
-export function httpPostJson(endpoint_name, json_object_data, variable_context, response_handler, token) {
+export function httpPostJson(endpoint_name, json_object_data, variable_context, response_handler) {
     let xmlHttp = new XMLHttpRequest();
     let port = 8000;
     xmlHttp.onreadystatechange = function() {
@@ -24,9 +24,9 @@ export function httpPostJson(endpoint_name, json_object_data, variable_context, 
     };
     let endpoint = "http://" + location.hostname + ":" + port + "/" + endpoint_name;
      xmlHttp.open("POST", endpoint, true);
-    if (token) {
+    /*if (token) {
         xmlHttp.setRequestHeader("Authorization", "Bearer " + token);
-    }
+    }*/
     xmlHttp.setRequestHeader('Content-type', 'application/json');
     xmlHttp.send(JSON.stringify(json_object_data));
 }
