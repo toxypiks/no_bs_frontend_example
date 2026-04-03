@@ -5,6 +5,12 @@ template.innerHTML = `
 
 <style>
 
+.main {
+    display: grid;
+    place-items: center;  /* horizontal + vertikal zentrieren */
+    margin-top: 10%;
+}
+
 /* Comic-artiger Button, kleiner */
     .btn-comic {
       background-color: #ff69b4;       /* Hot Pink */

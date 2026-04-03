@@ -3,15 +3,14 @@ import {httpPostJson, httpGet} from "./http_operations.js";
 const template = document.createElement("template");
 template.innerHTML = `
   <style>
-    .main img {
-      max-width: 80%;
+    
+    .img {
+      max-width: 100%;
       height: auto;
     }
   </style>
 
-  <div class="main">
-    <img src="you_did_it.gif?v=123" alt="gif"/>
-  </div>
+  <img src="you_did_it.gif?v=123" alt="gif"/>
 `;
 
 class MainComponent extends HTMLElement {

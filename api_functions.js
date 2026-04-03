@@ -124,9 +124,6 @@ function create_main_component(token)
 }
 
 function create_login_component() {
-    let login_component_test_tag = document.getElementById("login");
-    login_component_test_tag.innerHTML = "";
-
     let main_component_test_tag = document.getElementById("main");
     main_component_test_tag.innerHTML = "";
 
@@ -148,8 +145,6 @@ function create_login_component() {
 }
 
 function create_logout_component(token) {
-    let login_component_test_tag = document.getElementById("login");
-    login_component_test_tag.innerHTML = "";
     let logout_component_tag = document.createElement("logout-component");
     logout_component_tag.token = token;
     logout_component_tag.addEventListener("logout-event",(event) => {

@@ -1,8 +1,15 @@
-.main {
-    display: grid;
-    place-items: center;  /* horizontal + vertikal zentrieren */
-    height: 100vh;        /* Viewport-Höhe */
-    width: 100vw;         /* volle Breite */
-    background-color: #f0f0f0;
+body {
     margin: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.content {
+    display: grid;
+    place-items: center;
 }

@@ -3,17 +3,6 @@ import {httpPostJson, httpGet} from "./http_operations.js";
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
-  html, body {
-      height: 100%;
-    }
-    .login-container {
-      height: 100%;
-  }
-
-  .login-card {
-      margin-top: 5%;
-    }
-
   .image-container {
       height: 100%;
     }
@@ -30,7 +19,7 @@ template.innerHTML = `
 <head>
   <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
 </head>
-<div class="container login-container d-flex justify-content-center align-items-center">
+<div class="login-container">
   <div class="card login-card p-4 shadow" style="width: 100%; max-width: 320px;">
     <!-- logo -->
     <img src="no_bs_logo.png" alt="logo">
