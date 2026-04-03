@@ -1,6 +1,7 @@
 import {httpPostJson, httpGet} from "./http_operations.js";
 import "./main_component.js";
 import "./login_component.js"
+import "./logout_component.js"
 
 class NextState {
     constructor(next_state, todo_fct){
@@ -14,7 +15,6 @@ class NextState {
         return this._todo_fct;
     }
 }
-
 
 class State {
     constructor(log_fct){
@@ -115,27 +115,20 @@ let state = new State(outputToConsole);
 
 function create_main_component(token)
 {
-    let login_component_test_tag = document.getElementById("login");
-    login_component_test_tag.innerHTML = "";
-    
     let main_component_test_tag = document.getElementById("main");
     main_component_test_tag.innerHTML = "";
     
     let main_component_tag = document.createElement("main-component");
     main_component_tag.token = token;
-    main_component_tag.addEventListener("logout-event",(event) => {
-        let todo_fct = (state) => {
-            // TODO create_login_component();
-        };
-        let next_state = new NextState("logged_out_state", todo_fct);
-        state.state_change(next_state);
-    });
     main_component_test_tag.append(main_component_tag);
 }
 
 function create_login_component() {
     let login_component_test_tag = document.getElementById("login");
     login_component_test_tag.innerHTML = "";
+
+    let main_component_test_tag = document.getElementById("main");
+    main_component_test_tag.innerHTML = "";
 
     let login_component_tag = document.createElement("login-component");
     login_component_tag.addEventListener("log-event",(event) => {
@@ -146,11 +139,28 @@ function create_login_component() {
             state.token = token_event.detail;
 
             create_main_component(state.token);
+            create_logout_component(state.token);
         };
         let next_state = new NextState("logged_in_state", todo_fct);
         state.state_change(next_state);
     });
-    login_component_test_tag.append(login_component_tag);
+    main_component_test_tag.append(login_component_tag);
+}
+
+function create_logout_component(token) {
+    let login_component_test_tag = document.getElementById("login");
+    login_component_test_tag.innerHTML = "";
+    let logout_component_tag = document.createElement("logout-component");
+    logout_component_tag.token = token;
+    logout_component_tag.addEventListener("logout-event",(event) => {
+        let todo_fct = (state) => {
+            create_login_component();
+        };
+        let next_state = new NextState("logged_out_state", todo_fct);
+        state.state_change(next_state);
+    });
+    let main_component_test_tag = document.getElementById("main");
+    main_component_test_tag.append(logout_component_tag);
 }
 
 outputToConsole("running...");

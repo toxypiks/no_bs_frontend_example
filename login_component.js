@@ -3,7 +3,7 @@ import {httpPostJson, httpGet} from "./http_operations.js";
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
-    html, body {
+  html, body {
       height: 100%;
     }
     .login-container {
