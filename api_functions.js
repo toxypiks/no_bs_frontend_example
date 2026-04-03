@@ -113,12 +113,23 @@ function clearConsole() {
 
 let state = new State(outputToConsole);
 
-function create_main_component()
+function create_main_component(token)
 {
+    let login_component_test_tag = document.getElementById("login");
+    login_component_test_tag.innerHTML = "";
+    
     let main_component_test_tag = document.getElementById("main");
     main_component_test_tag.innerHTML = "";
     
     let main_component_tag = document.createElement("main-component");
+    main_component_tag.token = token;
+    main_component_tag.addEventListener("logout-event",(event) => {
+        let todo_fct = (state) => {
+            // TODO create_login_component();
+        };
+        let next_state = new NextState("logged_out_state", todo_fct);
+        state.state_change(next_state);
+    });
     main_component_test_tag.append(main_component_tag);
 }
 
@@ -134,7 +145,7 @@ function create_login_component() {
         let todo_fct = (state) => {
             state.token = token_event.detail;
 
-            // TODO create_logout_component(state.token);
+            create_main_component(state.token);
         };
         let next_state = new NextState("logged_in_state", todo_fct);
         state.state_change(next_state);
@@ -149,4 +160,3 @@ document.getElementById("clear_console").onclick = function() {
 };
 
 create_login_component();
-//create_main_component();

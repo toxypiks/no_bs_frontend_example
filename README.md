@@ -7,4 +7,4 @@
 `lighttpd -D -f lighttpd.conf`
 
 #### Browse frontend
-`http://localhost:8081`
+`http://localhost:8080`
