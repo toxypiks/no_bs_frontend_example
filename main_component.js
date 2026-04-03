@@ -1,7 +1,27 @@
 import {httpPostJson, httpGet} from "./http_operations.js";
 
 const template = document.createElement("template");
-template.innerHTML = `<h6>HELLO from main component</h6>`;
+template.innerHTML = `
+  <style>
+    .main {
+      display: grid;
+      place-items: center;  /* horizontal + vertikal zentrieren */
+      height: 100vh;        /* Viewport-Höhe */
+      width: 100vw;         /* volle Breite */
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    .main img {
+      max-width: 80%;
+      height: auto;
+    }
+  </style>
+
+  <div class="main">
+    <img src="you_did_it.gif?v=123" alt="gif"/>
+  </div>
+`;
 
 class MainComponent extends HTMLElement {
     constructor() {
