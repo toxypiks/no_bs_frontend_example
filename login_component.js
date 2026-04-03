@@ -65,10 +65,15 @@ class LoginComponent extends HTMLElement {
         super();
         this.root = this.attachShadow({mode: "closed"});
         this.root.appendChild(template.content.cloneNode(true));
+        this.global_token = "";
     }
 
     logEvent(log_msg) {
         this.dispatchEvent(new CustomEvent("log-event",{detail : log_msg} ));
+    }
+
+    tokenEvent(token_msg) {
+        this.dispatchEvent(new CustomEvent("token-event",{detail : token_msg} ));
     }
 
     httpPostUserForLogin(){

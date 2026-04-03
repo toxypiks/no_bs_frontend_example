@@ -2,6 +2,48 @@ import {httpPostJson, httpGet} from "./http_operations.js";
 import "./main_component.js";
 import "./login_component.js"
 
+class NextState {
+    constructor(next_state, todo_fct){
+        this._next_state = next_state;
+        this._todo_fct = todo_fct;
+    }
+    get next_state() {
+        return this._next_state;
+    }
+    get todo_fct() {
+        return this._todo_fct;
+    }
+}
+
+
+class State {
+    constructor(log_fct){
+        this.log_fct = log_fct;
+        this._token = "";
+        this.current_state = "login_state";
+    }
+
+    // all state change functionality should be here
+    state_change(next_state_obj){
+        this.log_fct("state_change from " + this.current_state + " to " + next_state_obj.next_state);
+        if ((this.current_state == "login_state") && (next_state_obj.next_state == "logged_in_state")){
+            this.current_state = next_state_obj.next_state;
+            next_state_obj.todo_fct(this);
+
+        } else {
+            this.current_state = next_state_obj.next_state;
+            next_state_obj.todo_fct(this);
+        }
+    }
+
+    get token() {
+        return this._token;
+    }
+    set token(new_token) {
+        this._token = new_token;
+    }
+}
+
 /**
  * Appends data to HTML Element with Id 'console'
  */
@@ -69,6 +111,8 @@ function clearConsole() {
     document.getElementById("console").innerHTML = "";
 }
 
+let state = new State(outputToConsole);
+
 function create_main_component()
 {
     let main_component_test_tag = document.getElementById("main");
@@ -85,6 +129,15 @@ function create_login_component() {
     let login_component_tag = document.createElement("login-component");
     login_component_tag.addEventListener("log-event",(event) => {
             outputToConsole(event.detail);
+    });
+    login_component_tag.addEventListener("token-event",(token_event) => {
+        let todo_fct = (state) => {
+            state.token = token_event.detail;
+
+            // TODO create_logout_component(state.token);
+        };
+        let next_state = new NextState("logged_in_state", todo_fct);
+        state.state_change(next_state);
     });
     login_component_test_tag.append(login_component_tag);
 }
