@@ -13,3 +13,13 @@ body {
     display: grid;
     place-items: center;
 }
+
+.grid > .footer {
+  padding: 10px 20px;
+}
+
+-grid > .footer > .button {
+  display: block; 
+  margin-bottom: 10px;
+  width: auto;
+}
