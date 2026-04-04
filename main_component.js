@@ -21,19 +21,7 @@ class MainComponent extends HTMLElement {
         this.root.appendChild(template.content.cloneNode(true));
     }
 
-    logEvent(log_msg) {
-        this.dispatchEvent(new CustomEvent("log-event",{detail : log_msg}));
-    }
-
-    logoutEvent(token_msg) {
-        this.dispatchEvent(new CustomEvent("logout-event",{detail : token_msg}));
-    }
-
-    tokenEvent(token_msg) {
-        this.dispatchEvent(new CustomEvent("token-event",{detail : token_msg} ));
-    }
-
-    /* Attribut Token von außen  machen
+    /* Attribut Token von außen machen
        kann so in WebComponent reingereicht werden */
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "token"){
