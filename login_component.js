@@ -27,14 +27,14 @@ template.innerHTML = `
     <h3 class="text-center mb-3">Login</h3>
     <form id="loginForm">
       <div class="form-group">
-        <label for="username">Benutzername</label>
+        <label for="username">Username</label>
         <input type="text" class="form-control" id="username" required>
       </div>
       <div class="form-group">
-        <label for="password">Passwort</label>
+        <label for="password">Password</label>
         <input type="password" class="form-control" id="password" required>
       </div>
-      <button type="submit" id="send_login_data"class="btn btn-primary btn-block">Login</button>
+      <button type="submit" id="send_login_data"class="btn btn-primary btn-block">Let's go!</button>
     </form>
     <div class="text-center mt-3">
       <a href="#" class="mr-3">Forgot Password?</a>
